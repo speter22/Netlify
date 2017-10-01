@@ -37,7 +37,7 @@
                 
                   <li><a href="#intro">Intro</a></li>
                 
-                  <li><a href="#work">R-Code</a></li>
+                  <li><a href="#work"> R Data Visualizing</a></li>
                 
                   <li><a href="#about">About</a></li>
                 
@@ -70,8 +70,10 @@ Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisi
 
             
               <article id="work">
-  <h1>R-Code</h1>
+  <h1> R Data Visualizing</h1>
   
+
+
 <figure class="image main">
     
         <img src="/images/pic02.jpg" />
@@ -79,6 +81,8 @@ Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisi
     
 </figure>
 
+
+<h2 id="intro">Intro</h2>
 
 <p>Before anything you need to retrieve your data, for example.</p>
 
@@ -95,6 +99,40 @@ Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisi
 <p><p>ggtitle(&ldquo;career strikeouts vs homeruns for great hitter&rdquo;)+</p></p>
 
 <p><p>xlab(&ldquo;carrer strikeouts&rdquo;)+ylab(&ldquo;career homeruns&rdquo;)</p></p>
+
+<h2 id="histograms">Histograms</h2>
+
+<p>Search for the data you want to plot and store as a result.</p>
+
+<p>query&lt;-&ldquo;SELECT weight
+ FROM Master&rdquo;</p>
+
+<p>result&lt;-sqldf(query)</p>
+
+<p>Now format the graph with data drawn from result. Bins are the number of individual results.</p>
+
+<p>ggplot()+
+   geom_histogram(data=result,aes(x=weight),color=&ldquo;blue&rdquo;,fill=&ldquo;white&rdquo;,bins=50)
+   +ggtitle(&ldquo;Body-weight distribution for Baseball players&rdquo;)</p>
+
+<h2 id="time-series">Time Series</h2>
+
+<p>Pull data to be charted against time. Example, Babe Ruth homeruns.</p>
+
+<p>query&lt;-&ldquo;SELECT yearID,HR
+ FROM Batting
+ WHERE playerID=&lsquo;ruthba01&rsquo;&rdquo;</p>
+
+<p>result&lt;-sqldf(query)</p>
+
+<p>Points can be connected by adding a line, hence the geom_line command. Otherwise it&rsquo;s the same as scatterplot.</p>
+
+<p>ggplot()+
+   geom_point(data=result,aes(x=yearID,y=HR))+
+   geom_line(data=result,aes(x=yearID,y=HR))+
+   ggtitle(&ldquo;Ruths Homeruns&rdquo;)+
+   xlab(&ldquo;Year&rdquo;)+
+   ylab(&ldquo;Homeruns&rdquo;)</p>
 
 </article>
 
