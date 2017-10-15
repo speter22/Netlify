@@ -71,7 +71,7 @@ Finally, [this is a link to a markdown cheatsheet](https://beegit.com/markdown-c
 
 #### Actions
 <ul class="actions">
-	<li><a href="#" class="button special">Default</a></li>
+	<li><a href="about" class="button special">"about"</a></li>
 	<li><a href="#" class="button">Default</a></li>
 </ul>
 <ul class="actions vertical">

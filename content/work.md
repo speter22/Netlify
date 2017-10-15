@@ -1,6 +1,6 @@
 +++
-title = " R Data Visualizing"
-weight = 20
+title = " R-Data"
+weight = 18
 draft = false
 +++
 
@@ -60,7 +60,25 @@ Points can be connected by adding a line, hence the geom_line command. Otherwise
    xlab("Year")+
    ylab("Homeruns")
 
+## Bar Plot
 
+Search for data
+
+query<-"SELECT teamID,sum(SB) AS total_SB
+FROM Batting
+WHERE playerID='loftoke01'
+GROUP BY teamID
+ORDER BY sum(SB)"
+
+result<-sqldf(query)
+
+result$teamID<-factor(result$teamID,levels=result$teamID)
+
+add the bar plot.
+
+
+ggplot()+
+  geom_bar(data=result,aes(x=teamID,y=total_SB),stat='identity')
     
     
     
