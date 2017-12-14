@@ -7,7 +7,7 @@ enableRobotsTXT = true
 disableKinds=["RSS"]
 
 [params]
-  description = '<!--[-->Where I write about my college experience and occasionally other stuff<!--]-->'
+  description = '<!--[-->Where I write about my college experience.<!--]-->'
   logo = "fa-circle"
   copyright = "Untitled"
 
