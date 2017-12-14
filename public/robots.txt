@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: //sitemap.xml
+Sitemap: https://speter22.netlify.com//sitemap.xml
