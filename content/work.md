@@ -1,5 +1,5 @@
 +++
-title = " R-Data"
+title = "R-Graphs"
 weight = 18
 draft = false
 +++
@@ -7,63 +7,100 @@ draft = false
 
 {{< figure class="image main" src="/images/pic02.jpg" >}}
 
-## Intro
+## Scatterplot
 
-<p>Before anything you need to retrieve your data, for example.</p>
+Start by downloading three packages
 
-<p> SELECT playerID,sum(HR) AS career_HR ,sum(SO) AS career_SO FROM Batting GROUP BY playerID HAVING sum(HR)</p>
+```{r message=FALSE, warning=FALSE}
 
-<p>save as a result</p>
+library(Lahman)
+library(sqldf)
+library(ggplot2)
 
-<p>We start our plotting of the data by entering this code, using the initial ggplot(), then adding with a + sign.</p>
+```
 
-<p> ggplot()+ <p/>
-  <p>geom_point(data=result,aes(x=career_SO,y=career_HR),size=3,color=red)+</p>
-  
-  <p>ggtitle("career strikeouts vs homeruns for great hitter")+</p>
-    
-  <p>xlab("carrer strikeouts")+ylab("career homeruns")</p>
+Next, get the data from a query in sqldf. We're finding players that have hit 400 or more hr'ss in their career.
 
+```{r}
+query<-"select playerID,sum(HR) as career_HR,sum(SO) as career_SO
+from Batting
+group by playerID
+having sum(HR)>=400"
+
+result<-sqldf(query)
+```
+
+Here we make a scatterplot with the data stored into result. 
+
+```{r}
+ggplot()+
+   geom_point(data=result,aes(x=career_SO,y=career_HR),size=3,color="blue")
+```
+
+Add bells and whistles
+
+```{r}
+ggplot()+
+   geom_point(data=result,aes(x=career_SO,y=career_HR),size=3,color="blue")+
+   ggtitle("Career Strikeouts VS Homeruns for Great Hitters")+
+   xlab("Career Strikeouts")+
+   ylab("Career Homeruns")
+```
 
 ## Histograms
 
 Search for the data you want to plot and store as a result. 
 
- query<-"SELECT weight
+```{r}
+library(Lahman)
+library(ggplot2)
+library(sqldf)
+```
+
+```{r} 
+query<-"SELECT weight
  FROM Master"
 
  result<-sqldf(query)
-      
+```
+
 Now format the graph with data drawn from result. Bins are the number of individual results. 
 
- ggplot()+
+```{r}
+ggplot()+
    geom_histogram(data=result,aes(x=weight),color="blue",fill="white",bins=50)
    +ggtitle("Body-weight distribution for Baseball players")
-   
+```
+
+
 ## Time Series
 
 Pull data to be charted against time. Example, Babe Ruth homeruns.
 
-
+```{r}
  query<-"SELECT yearID,HR
  FROM Batting
  WHERE playerID='ruthba01'"
 
  result<-sqldf(query)
+ 
+ ```
 
 Points can be connected by adding a line, hence the geom_line command. Otherwise it's the same as scatterplot.
 
+```{r}
  ggplot()+
    geom_point(data=result,aes(x=yearID,y=HR))+
    geom_line(data=result,aes(x=yearID,y=HR))+
    ggtitle("Ruths Homeruns")+
    xlab("Year")+
    ylab("Homeruns")
+```
 
 ## Bar Plot
 
 Search for data
-
+```{r}
 query<-"SELECT teamID,sum(SB) AS total_SB
 FROM Batting
 WHERE playerID='loftoke01'
@@ -73,12 +110,12 @@ ORDER BY sum(SB)"
 result<-sqldf(query)
 
 result$teamID<-factor(result$teamID,levels=result$teamID)
-
+```
 add the bar plot.
 
-
+```{r}
 ggplot()+
   geom_bar(data=result,aes(x=teamID,y=total_SB),stat='identity')
-    
+```    
     
     
